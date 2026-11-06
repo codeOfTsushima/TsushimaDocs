@@ -12,7 +12,7 @@ If you have any questions, suggestions, or run into any issues, feel free to rea
 1. Extract this ZIP to a normal folder.
 2. Open `chrome://extensions`.
 3. Enable **Developer mode**.
-4. Click **Load unpacked** and select the extracted `uni-pdfdownloader-fixed` folder.
+4. Click **Load unpacked** and select the extracted `TsushimaDocs` folder.
 5. Open the university page, sign in, navigate to the page containing the documents, then click the extension.
 6. Press **Rescan** after the page finishes loading if needed.
 
