@@ -1,0 +1,489 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>TsushimaDocs</title>
+  <style>
+    :root {
+      --bg: #0c0c0c;
+      --surface: #141414;
+      --surface-hover: #1f1f1f;
+      --border: #262626;
+      --accent: #ff4500;
+      --accent-hover: #ff5722;
+      --text: #e0e0e0;
+      --muted: #808080;
+      --success: #ff5722;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      width: 380px;
+      min-height: 100px;
+      max-height: 560px;
+      background: var(--bg);
+      color: var(--text);
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      font-size: 13px;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+    }
+
+   
+    .header {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 14px 16px;
+      background: var(--surface);
+      border-bottom: 1px solid var(--border);
+      flex-shrink: 0;
+    }
+
+    .logo {
+      width: 28px; height: 28px;
+      background: var(--accent);
+      border-radius: 4px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 14px;
+      color: #fff;
+      flex-shrink: 0;
+    }
+
+    .header-text h1 {
+      font-size: 14px;
+      font-weight: 600;
+      color: var(--text);
+    }
+
+    .header-text p {
+      font-size: 11px;
+      color: var(--muted);
+      margin-top: 1px;
+    }
+
+    .badge {
+      margin-left: auto;
+      background: var(--bg);
+      border: 1px solid var(--border);
+      border-radius: 4px;
+      padding: 3px 8px;
+      font-size: 11px;
+      color: var(--muted);
+      flex-shrink: 0;
+    }
+
+    .badge.has-pdfs {
+      border-color: var(--accent);
+      color: var(--accent);
+    }
+
+  
+    .action-bar {
+      display: flex;
+      gap: 8px;
+      padding: 10px 14px;
+      border-bottom: 1px solid var(--border);
+      flex-shrink: 0;
+      background: var(--bg);
+    }
+
+    .btn {
+      flex: 1;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+      padding: 7px 12px;
+      border: 1px solid var(--border);
+      border-radius: 4px;
+      cursor: pointer;
+      font-size: 12px;
+      font-weight: 500;
+      transition: background 0.15s ease, border-color 0.15s ease;
+      outline: none;
+    }
+
+    .btn-primary {
+      background: var(--accent);
+      color: #fff;
+      border-color: var(--accent);
+    }
+
+    .btn-primary:hover {
+      background: var(--accent-hover);
+      border-color: var(--accent-hover);
+    }
+
+    .btn-ghost {
+      background: var(--surface);
+      color: var(--text);
+      border-color: var(--border);
+    }
+
+    .btn-ghost:hover {
+      background: var(--surface-hover);
+      border-color: var(--muted);
+    }
+
+    .btn:disabled {
+      opacity: 0.4;
+      cursor: not-allowed;
+    }
+
+    .state {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 28px 24px;
+      gap: 10px;
+    }
+
+    .state-icon {
+      font-size: 28px;
+      line-height: 1;
+    }
+
+    .state-title {
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--text);
+    }
+
+    .state-sub {
+      font-size: 11px;
+      color: var(--muted);
+      text-align: center;
+      line-height: 1.4;
+    }
+
+
+    .spinner {
+      width: 24px; height: 24px;
+      border: 2px solid var(--border);
+      border-top-color: var(--accent);
+      border-radius: 50%;
+      animation: spin 0.6s linear infinite;
+    }
+
+    @keyframes spin { to { transform: rotate(360deg); } }
+
+    
+    .list-wrap {
+      flex: 1;
+      overflow-y: auto;
+      overflow-x: hidden;
+      padding: 8px 10px;
+      scrollbar-width: thin;
+      scrollbar-color: var(--border) transparent;
+    }
+
+    .list-wrap::-webkit-scrollbar { width: 4px; }
+    .list-wrap::-webkit-scrollbar-thumb { background: var(--border); border-radius: 2px; }
+
+    .pdf-item {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 8px 10px;
+      margin-bottom: 4px;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 4px;
+      transition: border-color 0.15s ease;
+    }
+
+    .pdf-item:hover {
+      border-color: #333;
+    }
+
+    .pdf-icon {
+      width: 28px; height: 28px;
+      background: var(--bg);
+      border: 1px solid var(--border);
+      border-radius: 4px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 10px;
+      font-weight: 700;
+      color: var(--accent);
+      flex-shrink: 0;
+    }
+
+    .pdf-info {
+      flex: 1;
+      min-width: 0;
+    }
+
+    .pdf-name {
+      font-size: 12px;
+      font-weight: 500;
+      color: var(--text);
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .pdf-meta {
+      font-size: 10px;
+      color: var(--muted);
+      margin-top: 2px;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .pdf-source {
+      display: inline-flex;
+      align-items: center;
+      font-size: 9px;
+      font-weight: 600;
+      text-transform: uppercase;
+      padding: 1px 4px;
+      border-radius: 2px;
+      margin-right: 4px;
+      background: var(--bg);
+      color: var(--muted);
+      border: 1px solid var(--border);
+    }
+
+    .dl-btn {
+      width: 26px; height: 26px;
+      border: 1px solid var(--border);
+      border-radius: 4px;
+      background: var(--bg);
+      color: var(--text);
+      cursor: pointer;
+      display: flex; align-items: center; justify-content: center;
+      transition: background 0.15s ease, border-color 0.15s ease;
+      flex-shrink: 0;
+      font-size: 13px;
+    }
+
+    .dl-btn:hover {
+      background: var(--surface-hover);
+      border-color: var(--accent);
+      color: var(--accent);
+    }
+
+    .dl-btn.done {
+      color: var(--success);
+      border-color: var(--success);
+      background: var(--bg);
+      pointer-events: none;
+    }
+
+    /* ── Footer ──────────────────────────────── */
+    .footer {
+      padding: 8px 14px;
+      border-top: 1px solid var(--border);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-shrink: 0;
+      background: var(--surface);
+    }
+
+    .footer-info {
+      font-size: 10px;
+      color: var(--muted);
+    }
+
+    .footer-link {
+      font-size: 10px;
+      color: var(--accent);
+      text-decoration: none;
+      cursor: pointer;
+    }
+
+    .footer-link:hover { text-decoration: underline; }
+
+    
+    .credit-bar {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+      padding: 8px 14px;
+      background: var(--bg);
+      border-top: 1px solid var(--border);
+      font-size: 11px;
+      color: var(--muted);
+      flex-shrink: 0;
+    }
+
+    .credit-link {
+      color: var(--text);
+      text-decoration: none;
+      font-weight: 500;
+      transition: color 0.15s ease;
+    }
+
+    .credit-link:hover {
+      color: var(--accent);
+    }
+
+    /* Progress bar */
+    .progress-bar-wrap {
+      height: 2px;
+      background: var(--border);
+      flex-shrink: 0;
+      overflow: hidden;
+    }
+
+    .progress-bar {
+      height: 100%;
+      background: var(--accent);
+      width: 0%;
+      transition: width 0.3s ease;
+    }
+
+    .progress-bar.active {
+      animation: progress-shimmer 1.2s ease-in-out infinite;
+    }
+    .popup-footer {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 5px;
+
+    padding: 12px;
+    margin-top: 12px;
+
+    border-top: 1px solid #303030;
+
+    font-size: 11px;
+    color: #888;
+}
+
+.github-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+
+    color: #e0e0e0;
+    text-decoration: none;
+    font-weight: 600;
+
+    transition: color 0.2s ease;
+}
+.image-container {
+
+  border-radius: 12px; 
+  overflow: hidden;    
+}
+
+.image-container img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  
+  transition: transform 0.3s ease;
+}
+
+
+.image-container:hover img {
+  transform: scale(1.1); 
+}
+
+.github-link:hover {
+    color: #ff4500;
+}
+
+    @keyframes progress-shimmer {
+      0%   { width: 10%; }
+      50%  { width: 80%; }
+      100% { width: 10%; }
+    }
+  </style>
+</head>
+<body>
+
+
+  <div class="header">
+    <div class="image-container">
+  <img src="icons/icon48.png" alt="Brand Icon">
+</div>
+
+    <div class="header-text">
+      <h1>TsushimaDocs</h1>
+      <p>Document Extractor</p>
+    </div>
+    <div class="badge" id="badge">Scanning</div>
+  </div>
+
+
+  <div class="progress-bar-wrap">
+    <div class="progress-bar active" id="progressBar"></div>
+  </div>
+
+
+  <div class="action-bar" id="actionBar" style="display:none">
+    <button class="btn btn-primary" id="btnDownloadAll">Download All</button>
+    <button class="btn btn-ghost" id="btnRescan">Rescan</button>
+  </div>
+
+
+  <div class="state" id="stateScanning">
+    <div class="spinner"></div>
+    <div class="state-title">Scanning page...</div>
+    <div class="state-sub">Looking for PDFs and PPTs</div>
+  </div>
+
+  <div class="state" id="stateEmpty" style="display:none">
+    <div class="state-icon">🔍</div>
+    <div class="state-title">No files found</div>
+    <div class="state-sub">No documents detected on this page.</div>
+  </div>
+
+  <div class="state" id="stateError" style="display:none">
+    <div class="state-icon">⚠️</div>
+    <div class="state-title">Restricted page</div>
+    <div class="state-sub">Cannot scan browser internal pages.</div>
+  </div>
+
+  <!-- PDF list -->
+  <div class="list-wrap" id="listWrap" style="display:none"></div>
+
+  <!-- Footer -->
+  <div class="footer" id="footer" style="display:none">
+    <span class="footer-info" id="footerInfo"></span>
+    <span class="footer-link" id="btnSelectAll">Select all</span>
+  </div>
+
+  
+  <div class="credit-bar">
+    <span>Made by <span style="color: var(--text);">Parthip M Potti</span></span>
+    <span>•</span>
+    <a class="credit-link" href="https://www.linkedin.com/in/parthip-m-potti-ls25012701" rel="noopener noreferrer" target="_blank" id="linkedinLink">LinkedIn</a>
+    
+  </div>
+<footer class="popup-footer">
+    <span>Github: </span>
+    <a
+        href="https://github.com/codeOfTsushima"
+        target="_blank"
+        rel="noopener noreferrer"
+        class="github-link"
+    >
+        <svg
+            width="15"
+            height="15"
+            viewBox="0 0 24 24"
+            fill="currentColor"
+            aria-hidden="true"
+        >
+            <path d="M12 .5a12 12 0 0 0-3.79 23.39c.6.11.82-.26.82-.58v-2.05c-3.34.73-4.04-1.42-4.04-1.42-.55-1.39-1.33-1.76-1.33-1.76-1.09-.75.08-.74.08-.74 1.2.08 1.84 1.23 1.84 1.23 1.07 1.83 2.8 1.3 3.49.99.11-.78.42-1.3.76-1.6-2.67-.3-5.47-1.34-5.47-5.95 0-1.31.47-2.38 1.23-3.22-.12-.3-.54-1.52.12-3.17 0 0 1-.32 3.3 1.23a11.5 11.5 0 0 1 6 0c2.29-1.55 3.29-1.23 3.29-1.23.66 1.65.24 2.87.12 3.17.77.84 1.23 1.91 1.23 3.22 0 4.62-2.8 5.65-5.48 5.95.43.37.81 1.1.81 2.22v3.29c0 .32.22.69.83.58A12 12 0 0 0 12 .5Z"/>
+        </svg>
+        codeOfTsushima
+    </a>
+    
+</footer>
+
+</body>
+<script src="popup.js"></script>
+</html>
